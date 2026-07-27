@@ -40,6 +40,11 @@ export function buildBody({ body = "", questionId, githubId, issue }) {
       new RegExp(`${generatedStart}[\\s\\S]*?${generatedEnd}\\s*`, "g"),
       "",
     )
+    // 자동화 도입 전에 사용하던 수동 제출 정보 블록도 제거해 중복을 막습니다.
+    .replace(
+      /(?:^|\n)## 제출 정보(?: \(자동 입력\))?\s*\n[\s\S]*?(?=\n## |$)/g,
+      "",
+    )
     .trim();
 
   return withoutGenerated ? `${generated}\n\n${withoutGenerated}` : generated;

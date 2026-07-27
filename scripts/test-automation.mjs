@@ -63,6 +63,27 @@ assert.match(prBody, /작성자: @student/);
 assert.match(prBody, /생명주기를 비교했습니다/);
 assert.match(prBody, /## 제출 정보\n/);
 assert.doesNotMatch(prBody, /자동 입력/);
+
+const refreshedPrBody = buildBody({
+  body: [
+    "## 제출 정보",
+    "",
+    "- 질문 Issue: #",
+    "- 질문 ID:",
+    "- 작성자 GitHub ID:",
+    "",
+    "## 답변 요약",
+    "",
+    "생명주기를 비교했습니다.",
+  ].join("\n"),
+  ...answer,
+  issue: { number: 2, html_url: "https://github.com/example/issues/2" },
+});
+assert.equal(refreshedPrBody.match(/## 제출 정보/g)?.length, 1);
+assert.equal(refreshedPrBody.match(/질문 Issue:/g)?.length, 1);
+assert.doesNotMatch(refreshedPrBody, /작성자 GitHub ID:/);
+assert.match(refreshedPrBody, /## 답변 요약/);
+
 assert.throws(() =>
   findAnswer([
     "answers/student/ANDROID-001.md",
