@@ -61,6 +61,8 @@ const prBody = buildBody({
 assert.match(prBody, /#2 — https:\/\/github\.com\/example\/issues\/2/);
 assert.match(prBody, /작성자: @student/);
 assert.match(prBody, /생명주기를 비교했습니다/);
+assert.match(prBody, /## 제출 정보\n/);
+assert.doesNotMatch(prBody, /자동 입력/);
 assert.throws(() =>
   findAnswer([
     "answers/student/ANDROID-001.md",

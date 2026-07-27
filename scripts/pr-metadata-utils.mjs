@@ -27,7 +27,7 @@ export function buildTitle({ questionId, githubId }) {
 export function buildBody({ body = "", questionId, githubId, issue }) {
   const generated = [
     generatedStart,
-    "## 제출 정보 (자동 입력)",
+    "## 제출 정보",
     "",
     `- 질문 Issue: ${issue ? `#${issue.number} — ${issue.html_url}` : "연결된 Issue를 찾지 못했습니다."}`,
     `- 질문 ID: \`${questionId}\``,
@@ -44,4 +44,3 @@ export function buildBody({ body = "", questionId, githubId, issue }) {
 
   return withoutGenerated ? `${generated}\n\n${withoutGenerated}` : generated;
 }
-
